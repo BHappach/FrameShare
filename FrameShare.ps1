@@ -1,2 +1,3 @@
 .\.venv\Scripts\Activate.ps1
-py main.py
+Start-Process -NoNewWindow -FilePath "py" -ArgumentList "main.py"
+exit
