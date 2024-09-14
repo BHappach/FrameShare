@@ -31,6 +31,7 @@ class ScreenCaptureWindow(QMainWindow):
         self.resize_corner_size = 30
 
         self.maximized = False  # Status, ob das Fenster maximiert ist
+        self.setWindowTitle("FrameShare Output")
         self.show()
 
         # QShortcut für Strg+Q hinzufügen
@@ -248,6 +249,7 @@ class OverlayWindow(QMainWindow):
         self.label.setGeometry(self.rect())
         self.label.setScaledContents(True)
         self.update_style()
+        self.setWindowTitle("Overlay")
         self.show()
 
     def paintEvent(self, event):
