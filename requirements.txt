@@ -1,0 +1,4 @@
+numpy
+pyautogui
+PyQt5
+Pillow
