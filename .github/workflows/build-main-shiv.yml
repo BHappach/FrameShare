@@ -1,10 +1,11 @@
 name: Build and Release Shiv Package
 
 on:
-  push:
-    tags:
-      - '*'  # Trigger für alle Tags
-  workflow_dispatch:  # Ermöglicht manuelles Starten
+  workflow_dispatch:
+    inputs:
+      tag_name:
+        description: 'Tag Name'
+        required: true
 
 jobs:
   build:
@@ -29,15 +30,15 @@ jobs:
       run: |
         shiv --site-packages . -o frameshare.pyz -e main:main -r requirements.txt
 
-    - name: Upload Shiv package
-      uses: actions/upload-artifact@v4
-      with:
-        name: frameshare
-        path: frameshare.pyz
+    - name: Create Git Tag
+      run: |
+        git tag ${{ github.event.inputs.tag_name }}
+        git push origin ${{ github.event.inputs.tag_name }}
 
     - name: Create GitHub Release
       uses: softprops/action-gh-release@v1
       with:
         files: frameshare.pyz
+        tag_name: ${{ github.event.inputs.tag_name }}
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
