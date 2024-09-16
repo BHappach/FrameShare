@@ -3,11 +3,9 @@ name: Build Shiv Package
 on:
   push:
     tags:
-      - '*'  # Dieser Trigger reagiert auf alle Tags
+      - '*'  # Trigger für alle Tags
+  workflow_dispatch:  # Ermöglicht manuelles Starten
 
-  workflow_dispatch:  # Ermöglicht das manuelle Starten des Workflows über die GitHub-Oberfläche
-
-  
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -19,7 +17,7 @@ jobs:
     - name: Set up Python
       uses: actions/setup-python@v2
       with:
-        python-version: '3.x'  # Wähle die Python-Version
+        python-version: '3.x'
 
     - name: Install dependencies
       run: |
@@ -32,7 +30,7 @@ jobs:
         shiv --site-packages . -o frameshare.pyz -e main:main -r requirements.txt
 
     - name: Upload Shiv package
-      uses: actions/upload-artifact@v2
+      uses: actions/upload-artifact@v3  # Aktualisiere auf v3
       with:
         name: frameshare
         path: frameshare.pyz
