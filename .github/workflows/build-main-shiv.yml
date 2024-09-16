@@ -12,10 +12,10 @@ jobs:
 
     steps:
     - name: Checkout code
-      uses: actions/checkout@v2
+      uses: actions/checkout@v3  # Aktualisiere auf v3
 
     - name: Set up Python
-      uses: actions/setup-python@v2
+      uses: actions/setup-python@v4  # Aktualisiere auf v4
       with:
         python-version: '3.x'
 
@@ -30,7 +30,7 @@ jobs:
         shiv --site-packages . -o frameshare.pyz -e main:main -r requirements.txt
 
     - name: Upload Shiv package
-      uses: actions/upload-artifact@v3  # Aktualisiere auf v3
+      uses: actions/upload-artifact@v4  # Aktualisiere auf v4
       with:
         name: frameshare
         path: frameshare.pyz
