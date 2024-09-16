@@ -30,10 +30,17 @@ jobs:
       run: |
         shiv --site-packages . -o frameshare.pyz -e main:main -r requirements.txt
 
-    - name: Create Git Tag
+    - name: Configure Git
+      run: |
+        git config user.name "GitHub Actions"
+        git config user.email "actions@github.com"
+
+    - name: Push Git Tag
+      env:
+        PAT_TOKEN: ${{ secrets.PAT_TOKEN }}
       run: |
         git tag ${{ github.event.inputs.tag_name }}
-        git push origin ${{ github.event.inputs.tag_name }}
+        git push https://x-access-token:${{ secrets.PAT_TOKEN }}@github.com/${{ github.repository }} ${{ github.event.inputs.tag_name }}
 
     - name: Create GitHub Release
       uses: softprops/action-gh-release@v1
