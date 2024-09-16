@@ -23,12 +23,13 @@ jobs:
     - name: Install dependencies
       run: |
         python -m pip install --upgrade pip
+        pip install numpy  # Installiere NumPy explizit, um sicherzustellen, dass die C-Erweiterungen korrekt eingebunden sind
         pip install -r requirements.txt
         pip install shiv
 
     - name: Build Shiv package
       run: |
-        shiv --compressed-pip --site-packages . -o frameshare.pyz -e main:main -r requirements.txt
+        shiv --site-packages . -o frameshare.pyz -e main:main -r requirements.txt
 
     - name: Configure Git
       run: |
