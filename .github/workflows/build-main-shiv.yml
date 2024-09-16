@@ -28,7 +28,7 @@ jobs:
 
     - name: Build Shiv package
       run: |
-        shiv --site-packages . -o frameshare.pyz -e main:main -r requirements.txt
+        shiv --compressed-pip --site-packages . -o frameshare.pyz -e main:main -r requirements.txt
 
     - name: Configure Git
       run: |
