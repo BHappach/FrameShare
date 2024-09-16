@@ -1,4 +1,4 @@
-name: Build Shiv Package
+name: Build and Release Shiv Package
 
 on:
   push:
@@ -12,10 +12,10 @@ jobs:
 
     steps:
     - name: Checkout code
-      uses: actions/checkout@v3  # Aktualisiere auf v3
+      uses: actions/checkout@v3
 
     - name: Set up Python
-      uses: actions/setup-python@v4  # Aktualisiere auf v4
+      uses: actions/setup-python@v4
       with:
         python-version: '3.x'
 
@@ -30,7 +30,14 @@ jobs:
         shiv --site-packages . -o frameshare.pyz -e main:main -r requirements.txt
 
     - name: Upload Shiv package
-      uses: actions/upload-artifact@v4  # Aktualisiere auf v4
+      uses: actions/upload-artifact@v4
       with:
         name: frameshare
         path: frameshare.pyz
+
+    - name: Create GitHub Release
+      uses: softprops/action-gh-release@v1
+      with:
+        files: frameshare.pyz
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
